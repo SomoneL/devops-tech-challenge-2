@@ -12,7 +12,7 @@ pipeline {
     }
     stage('Build Docker Image') {
       steps {
-        sh 'docker build -t $ECR_REPO:$IMAGE_TAG .'
+          sh 'docker build --platform linux/amd64 -t $ECR_REPO:$IMAGE_TAG .'
       }
     }
     stage('Push to ECR') {
