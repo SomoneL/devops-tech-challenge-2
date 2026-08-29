@@ -16,7 +16,7 @@ jobs:
 
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::ACCOUNT_ID:role/devops-challenge-2-github-actions
+          role-to-assume: arn:aws:iam::318630425437:role/devops-challenge-2-github-actions
           aws-region: us-east-1
 
       - name: Login to ECR
