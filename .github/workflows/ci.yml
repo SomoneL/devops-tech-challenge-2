@@ -1,0 +1,42 @@
+name: Build and Push
+on:
+  push:
+    branches: [gitops]
+    paths: ['index.js', 'Dockerfile', 'package*.json']
+
+permissions:
+  id-token: write
+  contents: write
+
+jobs:
+  build-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::ACCOUNT_ID:role/devops-challenge-2-github-actions
+          aws-region: us-east-1
+
+      - name: Login to ECR
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push
+        env:
+          ECR_REPO: ${{ steps.ecr-login.outputs.registry }}/devops-challenge-2-app
+          TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REPO:$TAG .
+          docker push $ECR_REPO:$TAG
+
+      - name: Update Helm values with new tag
+        env:
+          TAG: ${{ github.sha }}
+        run: |
+          sed -i "s/tag: .*/tag: \"$TAG\"/" helm/hello-world/values.yaml
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git commit -am "Deploy $TAG"
+          git push
