@@ -5,7 +5,7 @@ replicaCount: 1
 
 image:
   repository: REPLACE_WITH_ECR_REPOSITORY_URL   # terraform output ecr_repository_url
-  tag: latest
+  tag: "3bb465f86b937d9ddfbabb09d7b2fdfa91a9288f"
   pullPolicy: IfNotPresent
 
 service:
