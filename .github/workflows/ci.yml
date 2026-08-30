@@ -13,7 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
+      - name: Debug OIDC
+        run: |
+          echo "repository: ${{ github.repository }}"
+          echo "ref: ${{ github.ref }}"
+          echo "event: ${{ github.event_name }}"
+          echo "workflow_ref: ${{ github.workflow_ref }}"
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::318630425437:role/devops-challenge-2-github-actions
