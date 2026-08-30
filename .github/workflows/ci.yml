@@ -12,22 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Debug OIDC
-        run: |
+
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1          echo "repository: ${{ github.repository }}"
-          echo "ref: ${{ github.ref }}"
-          echo "event: ${{ github.event_name }}"
-          echo "workflow_ref: ${{ github.workflow_ref }}"
-
+          aws-region: us-east-1
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::318630425437:role/devops-challenge-2-github-actions
-          aws-region: us-east-1
-
       - name: Login to ECR
         id: ecr-login
         uses: aws-actions/amazon-ecr-login@v2
