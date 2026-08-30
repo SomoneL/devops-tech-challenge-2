@@ -10,7 +10,8 @@ Two independent CI/CD pipelines deliver the same chart. The `main` branch uses a
 
 <b>Live application:</b> http://k8s-default-hellowor-1800b9d2ea-1139299927.us-east-1.elb.amazonaws.com
 
-<img src="IMGUR_URL_APP_IN_BROWSER" height="60%" width="60%" alt="Hello World served through the ALB"/>
+Hello World served through the ALB<img width="676" height="122" alt="01-app-in-browser" src="https://github.com/user-attachments/assets/8703d945-fa89-4174-b2bc-40c4499d4f29" />
+
 
 <br />
 
@@ -93,7 +94,8 @@ curl http://localhost:3000          # → Hello, World!
 curl http://localhost:3000/health   # → OK
 ```
 
-<img src="IMGUR_URL_LOCAL_CURL" height="60%" width="60%" alt="Local curl responses"/>
+<img width="1912" height="172" alt="02-local-curl" src="https://github.com/user-attachments/assets/22eabd57-d4f6-4e61-a329-1d57ba246b35" />
+
 
 <br />
 
@@ -110,7 +112,8 @@ terraform apply
 
 Expect 15 to 20 minutes. The node group takes 5 to 10 minutes after the control plane is up.
 
-<img src="IMGUR_URL_TERRAFORM_APPLY" height="60%" width="60%" alt="terraform apply outputs"/>
+<img width="2048" height="364" alt="03-terraform-apply" src="https://github.com/user-attachments/assets/b2b8086c-26cf-4f93-94dc-5f286925c77f" />
+
 
 <h3>Step 2: Configure kubectl</h3>
 
@@ -120,7 +123,9 @@ kubectl get nodes
 kubectl get pods -A
 ```
 
-<img src="IMGUR_URL_GET_NODES" height="60%" width="60%" alt="Nodes in Ready state"/>
+<img width="1112" height="365" alt="04-get-nodes" src="https://github.com/user-attachments/assets/20d3fc58-f709-4f85-83c9-7176da66cebd" />
+
+
 
 <h3>Step 3: Install the AWS Load Balancer Controller</h3>
 
@@ -185,7 +190,8 @@ kubectl get ingress hello-world -w
 
 The ALB address appears after two to three minutes.
 
-<img src="IMGUR_URL_INGRESS_ADDRESS" height="60%" width="60%" alt="Ingress with ALB address"/>
+<img width="1820" height="88" alt="05-ingress-address" src="https://github.com/user-attachments/assets/36dc3104-fa86-43c5-8577-445ad74367af" />
+
 
 <br />
 
@@ -263,9 +269,10 @@ docker run -d --name jenkins \
 
 Images are tagged with the build number rather than <code>latest</code>, so every running pod traces back to a specific build.
 
-<img src="IMGUR_URL_JENKINS_BUILD" height="60%" width="60%" alt="Jenkins pipeline build succeeded"/>
+<img width="1018" height="626" alt="06-jenkins-build" src="https://github.com/user-attachments/assets/2a8c6d33-9349-4269-b641-d1ad49b67b96" />
 
-<img src="IMGUR_URL_POD_IMAGE" height="60%" width="60%" alt="Pod running the ECR-tagged image"/>
+<img width="1270" height="144" alt="07-pod-image" src="https://github.com/user-attachments/assets/0e83156e-0c68-4679-b801-59f56669bd68" />
+
 
 <br />
 
@@ -297,7 +304,8 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 The Application watches `targetRevision: gitops` at path `helm/hello-world` with `selfHeal: true` and `prune: true`. Verified by running `kubectl scale deploy hello-world --replicas=5` and watching Argo CD revert it.
 
-<img src="IMGUR_URL_ARGOCD_SYNCED" height="60%" width="60%" alt="Argo CD Application synced and healthy"/>
+<img width="750" height="790" alt="Screenshot 2026-08-30 at 6 48 52 PM" src="https://github.com/user-attachments/assets/a1814750-8396-434a-a49d-6565a5eda213" />
+
 
 <br />
 
@@ -321,9 +329,11 @@ hey -z 8m -c 100 http://$ALB_URL/
   <li><b>Nodes:</b> 1 → 2, new node Ready in roughly 3 minutes</li>
 </ul>
 
-<img src="IMGUR_URL_LOAD_PEAK" height="60%" width="60%" alt="3 pods and 2 nodes at peak load"/>
+<img width="2048" height="355" alt="08-load-peak" src="https://github.com/user-attachments/assets/09a0577e-a213-441b-88a8-3438d584a118" />
 
-<img src="IMGUR_URL_SCALE_DOWN" height="60%" width="60%" alt="Scaled back down after load stopped"/>
+
+<img width="2048" height="620" alt="10-scale-down" src="https://github.com/user-attachments/assets/3d38a314-b407-4617-aa33-72f200c785bb" />
+
 
 Scale-down is slower by design: the HPA waits out a five-minute stabilization window and the Cluster Autoscaler wants roughly ten minutes of low utilization. Under-provisioning drops traffic; scaling down too eagerly causes thrashing.
 
