@@ -4,7 +4,7 @@ httpRoute:
 replicaCount: 1
 
 image:
-  repository: REPLACE_WITH_ECR_REPOSITORY_URL   # terraform output ecr_repository_url
+  repository: 318630425437.dkr.ecr.us-east-1.amazonaws.com/devops-challenge-2-app   # terraform output ecr_repository_url
   tag: "3bb465f86b937d9ddfbabb09d7b2fdfa91a9288f"
   pullPolicy: IfNotPresent
 
