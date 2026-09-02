@@ -370,11 +370,3 @@ terraform destroy
 </ul>
 
 <br />
-
-<h2>Submission</h2>
-
-<ul>
-  <li>Private GitHub repository, shared with michaeltayo96@outlook.com as a collaborator</li>
-  <li>Live application URL listed at the top of this document</li>
-  <li>Both branches functional: <code>main</code> deploys through Jenkins, <code>gitops</code> through GitHub Actions and Argo CD</li>
-</ul>
